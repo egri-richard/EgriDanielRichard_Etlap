@@ -6,7 +6,6 @@
 
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <GridPane minWidth="200.0" prefHeight="259.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/11.0.2"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petrik.egridanielrichard_etlap.AddController">
    <columnConstraints>
@@ -33,15 +32,15 @@
    <ChoiceBox fx:id="cbFoodCategory" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <items>
          <FXCollections fx:factory="observableArrayList">
-            <String value="előétel"/>
-            <String value="főétel"/>
-            <String value="desszert"/>
+            <String fx:value="előétel"/>
+            <String fx:value="főétel"/>
+            <String fx:value="desszert"/>
          </FXCollections>
       </items>
    </ChoiceBox>
    <Spinner fx:id="spFoodPrice" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <valueFactory>
-         <IntegerSpinnerValueFactory initialValue="1000" max="9999" min="1" amountToStepBy="10" />
+         <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1000" max="9999" min="1" amountToStepBy="10" />
       </valueFactory>
    </Spinner>
 </GridPane>
