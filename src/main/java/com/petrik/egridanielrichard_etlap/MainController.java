@@ -109,28 +109,43 @@ public class MainController extends Controller {
         double amount = spAmountOfFixRaise.getValue();
 
         if (foodTable.getSelectionModel().getSelectedIndex() == -1) {
-            try {
-                if (new FoodDb().raiseAll(amount) == -1) {
-                    alert("Sikertelen növelés");
-                } else {
-                    alert("Sikeres növelés");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Biztos szeretné növelni az összes étel árát?");
+            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType resultType = result.orElse(ButtonType.CANCEL);
+
+            if (resultType == ButtonType.OK) {
+                try {
+                    if (new FoodDb().raiseAll(amount) == -1) {
+                        alert("Sikertelen növelés");
+                    } else {
+                        alert("Sikeres növelés");
+                    }
+                } catch (SQLException e) {
+                    errorAlert(e);
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                errorAlert(e);
-                e.printStackTrace();
             }
         } else {
-            int id = foodTable.getSelectionModel().getSelectedItem().getId();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            String name = foodTable.getSelectionModel().getSelectedItem().getName();
+            alert.setHeaderText("Biztos szeretné növelni "+name+" árát?");
+            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType resultType = result.orElse(ButtonType.CANCEL);
 
-            try {
-                if (new FoodDb().raiseSingle(amount, id) == -1) {
-                    alert("Sikertelen növelés");
-                } else {
-                    alert("Sikeres növelés");
+            if (resultType == ButtonType.OK) {
+                int id = foodTable.getSelectionModel().getSelectedItem().getId();
+
+                try {
+                    if (new FoodDb().raiseSingle(amount, id) == -1) {
+                        alert("Sikertelen növelés");
+                    } else {
+                        alert("Sikeres növelés");
+                    }
+                } catch (SQLException e) {
+                    errorAlert(e);
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                errorAlert(e);
-                e.printStackTrace();
             }
         }
 
@@ -144,31 +159,45 @@ public class MainController extends Controller {
     @FXML
     public void RaisePercentClick(ActionEvent actionEvent) {
         double amount = 1 + spAmountOfPercentRaise.getValue() / 100d;
-        System.out.println(amount);
 
         if (foodTable.getSelectionModel().getSelectedIndex() == -1) {
-            try {
-                if (new FoodDb().raiseAll(amount) == -1) {
-                    alert("Sikertelen növelés");
-                } else {
-                    alert("Sikeres növelés");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Biztos szeretné növelni az összes étel árát?");
+            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType resultType = result.orElse(ButtonType.CANCEL);
+
+            if (resultType == ButtonType.OK) {
+                try {
+                    if (new FoodDb().raiseAll(amount) == -1) {
+                        alert("Sikertelen növelés");
+                    } else {
+                        alert("Sikeres növelés");
+                    }
+                } catch (SQLException e) {
+                    errorAlert(e);
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                errorAlert(e);
-                e.printStackTrace();
             }
         } else {
-            int id = foodTable.getSelectionModel().getSelectedItem().getId();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            String name = foodTable.getSelectionModel().getSelectedItem().getName();
+            alert.setHeaderText("Biztos szeretné növelni "+name+" árát?");
+            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType resultType = result.orElse(ButtonType.CANCEL);
 
-            try {
-                if (new FoodDb().raiseSingle(amount, id) == -1) {
-                    alert("Sikertelen növelés");
-                } else {
-                    alert("Sikeres növelés");
+            if (resultType == ButtonType.OK) {
+                int id = foodTable.getSelectionModel().getSelectedItem().getId();
+
+                try {
+                    if (new FoodDb().raiseSingle(amount, id) == -1) {
+                        alert("Sikertelen növelés");
+                    } else {
+                        alert("Sikeres növelés");
+                    }
+                } catch (SQLException e) {
+                    errorAlert(e);
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                errorAlert(e);
-                e.printStackTrace();
             }
         }
 
