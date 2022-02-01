@@ -11,11 +11,28 @@ public class FoodDb {
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/etlapdb", "root", "");
     }
 
+    public List<Category> getCategories() throws SQLException {
+        List<Category> categoryList = new ArrayList<>();
+        String sql = "SELECT * FROM kategoria ORDER BY id";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while(rs.next()) {
+            categoryList.add(new Category(
+                    rs.getInt("id"),
+                    rs.getString("nev")
+            ));
+        }
+
+        return categoryList;
+    }
+
     public List<Food> getFoods() throws SQLException {
         List<Food> retList = new ArrayList<>();
-        String sql = "SELECT * FROM etlap";
+        String sql = "SELECT etlap.id, etlap.nev, leiras, ar, kategoria.nev AS kategoria FROM `etlap` INNER JOIN kategoria ON etlap.kategoria_id = kategoria.id";
 
         Statement stmt = conn.createStatement();
+
         ResultSet rs = stmt.executeQuery(sql);
 
         while(rs.next()) {
@@ -23,7 +40,8 @@ public class FoodDb {
                 rs.getInt("id"),
                 rs.getString("nev"),
                 rs.getString("leiras"),
-                rs.getInt("ar"), rs.getString("kategoria")
+                rs.getInt("ar"),
+                rs.getString("kategoria")
             ));
         }
 

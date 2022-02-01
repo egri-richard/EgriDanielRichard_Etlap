@@ -31,6 +31,8 @@ public class MainController extends Controller {
     private Button btnRaisePercent;
     @FXML
     private Button btnRaiseFix;
+    @FXML
+    private Button btnShowCategories;
 
     public void initialize() {
         foodNameCell.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -204,6 +206,24 @@ public class MainController extends Controller {
         try {
             fillTable();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void showCategoriesClick(ActionEvent actionEvent) {
+        try {
+            Controller categoryWindow = newWindow("show-categories.fxml", "Categories", 210, 300);
+            categoryWindow.getStage().setOnCloseRequest(event -> {
+                try { fillTable(); } catch (SQLException e) {
+                    errorAlert(e);
+                    e.printStackTrace();
+                }
+            });
+
+            categoryWindow.getStage().show();
+        } catch (Exception e) {
+            errorAlert(e);
             e.printStackTrace();
         }
     }

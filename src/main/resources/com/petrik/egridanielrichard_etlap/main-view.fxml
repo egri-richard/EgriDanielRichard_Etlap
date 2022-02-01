@@ -13,6 +13,7 @@
          <children>
             <Button fx:id="btnNewFood" mnemonicParsing="false" onAction="#btnNewFoodClick" text="Új étel felvétele" />
             <Button fx:id="btnDeleteFood" mnemonicParsing="false" onAction="#btnDeleteFoodClick" text="Törlés" />
+            <Button fx:id="btnShowCategories" mnemonicParsing="false" onAction="#showCategoriesClick" text="Kategóriák" />
          </children>
       </HBox>
       <Label text="Árnövelés:" />
@@ -20,7 +21,7 @@
          <children>
             <Spinner fx:id="spAmountOfFixRaise">
                 <valueFactory>
-                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="50" max="3000" min="50" amountToStepBy="10" />
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="50" max="3000" min="50" />
                 </valueFactory>
             </Spinner>
             <Label text="Fix értékkel" />
@@ -31,7 +32,7 @@
          <children>
             <Spinner fx:id="spAmountOfPercentRaise">
                 <valueFactory>
-                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="5" max="50" min="5" amountToStepBy="5" />
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="5" initialValue="5" max="50" min="5" />
                 </valueFactory>
             </Spinner>
             <Label text="\%-osan" />
