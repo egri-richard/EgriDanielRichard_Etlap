@@ -29,15 +29,7 @@
            text="Hozzáadás" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
    <TextArea fx:id="taFoodDetails" maxHeight="100.0" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1"
              GridPane.rowIndex="1"/>
-   <ChoiceBox fx:id="cbFoodCategory" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-      <items>
-         <FXCollections fx:factory="observableArrayList">
-            <String fx:value="előétel"/>
-            <String fx:value="főétel"/>
-            <String fx:value="desszert"/>
-         </FXCollections>
-      </items>
-   </ChoiceBox>
+   <ChoiceBox fx:id="cbFoodCategory" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    <Spinner fx:id="spFoodPrice" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <valueFactory>
          <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1000" max="9999" min="1" amountToStepBy="10" />

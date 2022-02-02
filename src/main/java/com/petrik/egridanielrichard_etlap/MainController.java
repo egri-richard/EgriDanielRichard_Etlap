@@ -79,7 +79,6 @@ public class MainController extends Controller {
     public void btnNewFoodClick(ActionEvent actionEvent) {
         try {
             Controller addWindow = newWindow("add-food-view.fxml", "Add Food", 400, 400);
-            //System.out.println("addWindow called");
             addWindow.getStage().setOnCloseRequest(event -> {
                 try { fillTable(); } catch (SQLException e) {
                     errorAlert(e);

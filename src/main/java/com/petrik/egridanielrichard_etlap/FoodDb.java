@@ -48,14 +48,32 @@ public class FoodDb {
         return retList;
     }
 
-    public int addFood(String name, String details, int price, String category) throws SQLException {
-        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria) VALUES(?, ?, ?, ?)";
+    public int addCategory(String name) throws SQLException {
+        String sql = "INSERT INTO kategoria(nev) VALUES(?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        stmt.setString(1, name);
+
+        return stmt.executeUpdate();
+    }
+
+    public int deleteCategory(int id) throws SQLException {
+        String sql = "DELETE FROM kategoria WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        stmt.setInt(1, id);
+
+        return stmt.executeUpdate();
+    }
+
+    public int addFood(String name, String details, int price, int category) throws SQLException {
+        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria_id) VALUES(?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
 
         stmt.setString(1, name);
         stmt.setString(2, details);
         stmt.setInt(3, price);
-        stmt.setString(4, category);
+        stmt.setInt(4, category);
 
         return stmt.executeUpdate();
     }
