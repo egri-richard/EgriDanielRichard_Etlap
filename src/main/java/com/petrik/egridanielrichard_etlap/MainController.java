@@ -1,5 +1,7 @@
 package com.petrik.egridanielrichard_etlap;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -7,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class MainController extends Controller {
@@ -33,6 +36,10 @@ public class MainController extends Controller {
     private Button btnRaiseFix;
     @FXML
     private Button btnShowCategories;
+    @FXML
+    private ChoiceBox<Category> cbCategorySort;
+    @FXML
+    private Label testText;
 
     public void initialize() {
         foodNameCell.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -40,10 +47,27 @@ public class MainController extends Controller {
         foodPriceCell.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         try {
+            List<Category> cg = new FoodDb().getCategories();
+            for (Category c: cg) {
+                cbCategorySort.getItems().add(c);
+            }
+            Category all = new Category(0,"összes");
+            cbCategorySort.getItems().add(all);
             fillTable();
         } catch(SQLException e) {
             e.printStackTrace();
         }
+
+        cbCategorySort.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Category>() {
+            @Override
+            public void changed(ObservableValue<? extends Category> observableValue, Category category, Category t1) {
+                try {
+                    fillTable(t1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
@@ -100,8 +124,27 @@ public class MainController extends Controller {
 
         foodTable.getItems().clear();
 
-        for (Food food: list) {
+        for (Food food : list) {
             foodTable.getItems().add(food);
+        }
+    }
+
+    public void fillTable(Category sortBy) throws SQLException {
+        FoodDb db = new FoodDb();
+        List<Food> list = db.getFoods();
+
+        foodTable.getItems().clear();
+
+        if (sortBy.getName().equals("összes")) {
+            for (Food food: list) {
+                foodTable.getItems().add(food);
+            }
+        } else {
+            for (Food food: list) {
+                if (food.getCategory().equals(sortBy.getName())) {
+                    foodTable.getItems().add(food);
+                }
+            }
         }
     }
 

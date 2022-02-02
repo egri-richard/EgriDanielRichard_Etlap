@@ -39,6 +39,12 @@
             <Button fx:id="btnRaisePercent" mnemonicParsing="false" onAction="#RaisePercentClick" text="Növelés" />
          </children>
       </HBox>
+      <HBox prefHeight="33.0" prefWidth="460.0">
+         <children>
+            <Label fx:id="testText" text="Szűrés kategória szerint: " />
+            <ChoiceBox fx:id="cbCategorySort" prefWidth="150.0" />
+         </children>
+      </HBox>
       <TableView fx:id="foodTable" maxWidth="400.0" prefHeight="275.0" prefWidth="400.0">
         <columns>
           <TableColumn fx:id="foodNameCell" prefWidth="225.0" text="Név" />
